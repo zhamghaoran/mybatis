@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhr.mybatis.mapper.Usermapper">
+    <!--    查询-->
+    <select id="getUser" resultType="User">
+        select *
+        from t_user
+    </select>
+    <!--  查询-->
+    <select id="getUserByUsername" resultType="User">
+        select *
+        from t_user
+        where username = #{username}
+    </select>
+    <select id="checkLogin" resultType="User">
+        select *
+        from t_user
+        where username = #{username}
+          and password = #{password}
+    </select>
+    <select id="checkLoginMap" resultType="User">
+        select *
+        from t_user
+        where username = #{username}
+          and password = #{password}
+    </select>
+    <insert id="insertUser">
+        insert into t_user
+        values (null, #{username}, #{password}, #{age}, #{sex}, #{email})
+    </insert>
+    <select id="getcount" resultType="int">
+        select count(*)
+        from t_user;
+    </select>
+    <select id="getUserByIdToMap" resultType="map">
+        select *
+        from t_user
+        where id = #{id}
+    </select>
+    <select id="getAllUserToMap" resultType="map">
+        select *
+        from t_user
+    </select>
+    <!--    模糊查询需要用%把查询内容框起来-->
+    <select id="getUserByLike" resultType="User">
+        select *
+        from t_user
+        where username like "%"#{username1}"%"
+    </select>
+    <!--删除-->
+    <delete id="deletemore">
+        delete
+        from t_user
+        where id in (${ids})
+    </delete>
+    <!--    动态设置表明表名只能使用$因为不能带''号-->
+    <select id="getUserByTableName" resultType="User">
+        select *
+        from ${tableName}
+    </select>
+</mapper>
